@@ -26,6 +26,11 @@ componentDidMount(){
   });
 }
 
+onChange= event =>{
+  event.preventDefault();
+  this.setState({ redirect: "/" });
+
+}
 
 render() {
   const{items, isLoaded}=this.state;
@@ -42,11 +47,12 @@ render() {
          <Time/>
           <div className="Todolist">
            <Form/>
-          <ul className="Todos">
+          <ul className="Todos"
+          onChange={this.onChange}>
 
           {items.map(item=>(
             <li key={item.id}>
-           <p className="newTask"><TrashButton/> <strong>{item.title}</strong> </p>
+           <p className="newTask"><TrashButton/> {item.id} <strong>{item.title}</strong> </p>
            <p>{item.description}</p>
             </li>
           ))}

@@ -13,16 +13,6 @@ class Form extends Component {
         }
 
     }
-    componentDidMount(){
-      fetch(API_URI)
-      .then(res=>res.json())
-      .then(json=> {
-          this.setState({
-            items:json,
-            isLoaded:true,
-          })
-      });
-    }
 
 handleSubmit (event){
   event.preventDefault();
@@ -31,15 +21,16 @@ handleSubmit (event){
     description: this.state.description,
   })
   .then(res=>{
+    window.location.reload();
     console.log(res.data)
 })
 }
 
 render(){
-return   <form onSubmit={this.handleSubmit} id="myForm" >
-          <input type="text" name="title" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} placeholder="Nouvelle Tache" required/>
-          <input type="text" name="description" value={this.state.description} onChange={e => this.setState({ description: e.target.value })} placeholder="description"/>
-          <button type="Submit" onClick={e => this.handleSubmit(e)} value="Submit" >Ajouter</button></form>
+    return  <form onSubmit={this.handleSubmit} id="myForm" >
+            <input type="text" name="title" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} placeholder="Nouvelle Tache" required/>
+            <input type="text" name="description" value={this.state.description} onChange={e => this.setState({ description: e.target.value })} placeholder="description"/>
+            <button action='/' type="Submit" onClick={e => this.handleSubmit(e)} value="Submit" >Ajouter</button></form>
 }
 }
 export default Form;
