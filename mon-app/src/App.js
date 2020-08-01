@@ -10,7 +10,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      items:[],
+      todolist:[],
+      success: false,
       isLoaded: false,
     }
   };
@@ -18,22 +19,29 @@ class App extends Component {
 componentDidMount(){
   fetch(API_URI)
   .then(res=>res.json())
-  .then(json=> {
+  .then(result=> {
       this.setState({
-        items:json,
+        todolist:result.todolist,
         isLoaded:true,
+        success: true,
       })
   });
 }
 
 onChange= event =>{
-  event.preventDefault();
-  this.setState({ redirect: "/" });
+
+
+}
+
+handleChange=event=>{
+
+this.setState({
+})
 
 }
 
 render() {
-  const{items, isLoaded}=this.state;
+  const{todolist, isLoaded, success}=this.state;
   if(!isLoaded){
     return <div>Loading.... </div>
   }
@@ -46,11 +54,11 @@ render() {
 
          <Time/>
           <div className="Todolist">
-           <Form/>
+           <Form onSubmit={this.handleChange}/>
           <ul className="Todos"
-          onChange={this.onChange}>
+          onChange={this.onChange()}>
 
-          {items.map(item=>(
+          {todolist.map(item=>(
             <li key={item.id}>
            <p className="newTask"><TrashButton/> {item.id} <strong>{item.title}</strong> </p>
            <p>{item.description}</p>
